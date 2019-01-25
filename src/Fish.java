@@ -13,7 +13,10 @@ public abstract class Fish implements IAnimal {
 		startPosX = x;
 		startPosY = y;
 	}
-
+	public  void setMainColor(Color color)
+	        {
+	            ColorBody = color;
+	         }
 	protected int age;
 	private int Age;
 

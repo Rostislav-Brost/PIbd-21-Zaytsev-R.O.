@@ -11,13 +11,16 @@ namespace lab2
     class Aquarium
     {
         ClassArray<IAnimals> aquarium;
+
         //4
         List<ClassArray<IAnimals>> aquariumStages;
         int currentLevel;
         //
+
         int countCell = 10;
         int cellW = 310;
         int cellH = 80;
+
         //4
         public int getCurrentLevel
         {
@@ -55,9 +58,9 @@ namespace lab2
             }
         }
         //
+
         public int PutSharkInAquarium(IAnimals shark)
         {
-
             //4
             return aquariumStages[currentLevel] + shark;
             //
@@ -73,18 +76,19 @@ namespace lab2
         public void Draw(Graphics g, int w, int h)
         {
             DrawCells(g);
-            for (int i = 0; i < countCell; i++)
+            //8
+            int i = 0;
+            foreach (var shark in aquariumStages[currentLevel])
             {
-                //4
-                var shark = aquariumStages[currentLevel][i];
-                //
-
-                if (shark != null)
-                {
-                    shark.setPos(5 + i / 5 * cellW + 100, i % 5 * cellH + 40);
-                    shark.drawAnimal(g);
-                }
+                shark.setPos(5 + i / 5 * cellW + 100, i % 5 * cellH + 40);
+                shark.drawAnimal(g);
+                i++;
             }
+
+        }
+        public void Sort()
+        {
+            aquariumStages.Sort();
         }
 
         private void DrawCells(Graphics g)
@@ -93,6 +97,7 @@ namespace lab2
             //4
             g.DrawString(("L" + currentLevel + 1), new Font("Arial", 30), new SolidBrush(Color.Blue), (countCell / 5) * cellW - 70, 420);
             //
+
             for (int i = 0; i < countCell / 5; i++)
             {
                 for (int j = 0; j < 6; ++j)
@@ -108,7 +113,6 @@ namespace lab2
                 }
             }
         }
-
         //6
         public bool SaveData(string filename)
         {

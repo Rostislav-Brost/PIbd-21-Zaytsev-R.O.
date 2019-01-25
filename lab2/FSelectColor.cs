@@ -10,12 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace lab2
+
 {
     public partial class FSelectColor : Form
     {
         //7
         private Logger log;
         //
+
         IAnimals shark = null;
 
         public IAnimals getShark { get { return shark; } }
@@ -24,27 +26,27 @@ namespace lab2
         {
             if (shark != null)
             {
-                Bitmap bmp = new Bitmap(pictureBoxCar.Width, pictureBoxCar.Height);
+                Bitmap bmp = new Bitmap(pictureBoxFish.Width, pictureBoxFish.Height);
                 Graphics gr = Graphics.FromImage(bmp);
                 shark.setPos(20, 50);
                 shark.drawAnimal(gr);
-                pictureBoxCar.Image = bmp;
+                pictureBoxFish.Image = bmp;
             }
         }
 
         private event myDel eventAddShark;
 
-        /*    public void AddEvent(myDel ev)
+        public void AddEvent(myDel ev)
+        {
+            if (eventAddShark == null)
             {
-                if (eventAddShark == null)
-                {
-                    eventAddShark = new myDel(ev);
-                }
-                else
-                {
-                    eventAddShark += ev;
-                }
-            }*/
+                eventAddShark = new myDel(ev);
+            }
+            else
+            {
+                eventAddShark += ev;
+            }
+        }
         public FSelectColor()
         {
             InitializeComponent();
@@ -71,7 +73,8 @@ namespace lab2
         }
 
         private void FCOk_Click(object sender, EventArgs e)
-        { //7
+        {
+            //7
             log.Info("Добавление акулы ");
             //
             if (eventAddShark != null)
@@ -79,11 +82,13 @@ namespace lab2
                 eventAddShark(shark);
 
             }
+
             Close();
         }
 
-        private void panelCar_DragDrop(object sender, DragEventArgs e)
-        {   //7
+        private void panelFish_DragDrop(object sender, DragEventArgs e)
+        {
+            //7
             log.Info("DD Выбор типа  " + e.Data.GetData(DataFormats.Text).ToString());
             //
             switch (e.Data.GetData(DataFormats.Text).ToString())
@@ -98,11 +103,11 @@ namespace lab2
             drawAnimal();
         }
 
-        private void panelCar_DragEnter(object sender, DragEventArgs e)
-        { //7
+        private void panelFish_DragEnter(object sender, DragEventArgs e)
+        {
+            //7
             log.Info("DE Проверка типа");
             //
-
             if (e.Data.GetDataPresent(DataFormats.Text))
                 e.Effect = DragDropEffects.Copy;
             else
@@ -111,7 +116,6 @@ namespace lab2
 
         private void panelColor_MouseDown(object sender, MouseEventArgs e)
         {
-
             (sender as Control).DoDragDrop((sender as Control).BackColor, DragDropEffects.Move | DragDropEffects.Copy);
             //7
             log.Info("MD перетаскивание");
@@ -147,7 +151,8 @@ namespace lab2
         private void FBaseColor_DradDrop(object sender, DragEventArgs e)
         {
             if (shark != null)
-            { //7
+            {
+                //7
                 log.Info("DD Выбор цвета  " + (Color)e.Data.GetData(typeof(Color)));
                 //
                 shark.setMainColor((Color)e.Data.GetData(typeof(Color)));

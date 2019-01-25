@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aquarium.cs" />
+    <Compile Include="AquariumAlreadyHaveException.cs" />
     <Compile Include="AquIndexOutOfRangeException.cs" />
     <Compile Include="AquOverflowException.cs" />
     <Compile Include="ClassArray.cs" />

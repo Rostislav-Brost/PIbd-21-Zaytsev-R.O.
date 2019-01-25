@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿//using NLog;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +14,24 @@ namespace lab2
 {
     public partial class FAquarium : Form
     {
+        Aquarium aquarium;
+
         //5
         FSelectColor form;
         //
+
         //7
         private Logger log;
         //
 
-        Aquarium aquarium;
         public FAquarium()
         {
             InitializeComponent();
+
+            //7
+            log = LogManager.GetCurrentClassLogger();
+            //
+
             aquarium = new Aquarium(5);
 
             //4
@@ -33,11 +41,13 @@ namespace lab2
             }
             listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
             //
+
             Draw();
         }
 
         private void Draw()
-        { //4
+        {
+            //4
             if (listBoxLevels.SelectedIndex > -1)
             //
             {
@@ -65,6 +75,7 @@ namespace lab2
             {
                 var shark = new Shark(15, 15, 15, dialog.Color);
                 int place = aquarium.PutSharkInAquarium(shark);
+
                 Draw();
                 MessageBox.Show("Ваше место: " + place);
             }
@@ -136,9 +147,11 @@ namespace lab2
         {
             aquarium.LevelDown();
             listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+
             //7
             log.Info("Переход на уровень ниже. Текущий уровень: " + aquarium.getCurrentLevel);
             //
+
             Draw();
         }
 
@@ -146,19 +159,24 @@ namespace lab2
         {
             aquarium.LevelUp();
             listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+
             //7
             log.Info("Переход на уровень выше. Текущий уровень: " + aquarium.getCurrentLevel);
             //
+
             Draw();
         }
         //
+
         //5
         private void button1_Click(object sender, EventArgs e)
-        { //7
+        {
+            //7
             log.Info("Добавление акулы на уровень " + aquarium.getCurrentLevel);
             //
+
             form = new FSelectColor();
-            //   form.AddEvent(AddShark);
+            form.AddEvent(AddShark);
             form.Show();
         }
         private void AddShark(IAnimals shark)
@@ -183,20 +201,20 @@ namespace lab2
             }
             //
         }
-        //
 
         //6
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 //7
                 log.Info("Попытка загрузки");
                 //
+
                 if (aquarium.SaveData(saveFileDialog1.FileName))
                 {
                     MessageBox.Show("Сохранение прошло успешно", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     //7
                     log.Info("Сохранение: успешно");
                     //
@@ -233,6 +251,12 @@ namespace lab2
                 }
                 Draw();
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            aquarium.Sort();
+            Draw();
         }
         //
     }

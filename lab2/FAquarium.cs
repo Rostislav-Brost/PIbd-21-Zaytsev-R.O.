@@ -16,16 +16,28 @@ namespace lab2
         public FAquarium()
         {
             InitializeComponent();
-            aquarium = new Aquarium();
+            aquarium = new Aquarium(5);
+
+            //4
+            for (int i = 1; i < 6; i++)
+            {
+                listBoxLevels.Items.Add("Level " + i);
+            }
+            listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+            //
             Draw();
         }
 
         private void Draw()
-        {
-            Bitmap bmp = new Bitmap(FAqu.Width, FAqu.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            aquarium.Draw(gr, FAqu.Width, FAqu.Height);
-            FAqu.Image = bmp;
+        { //4
+            if (listBoxLevels.SelectedIndex > -1)
+            //
+            {
+                Bitmap bmp = new Bitmap(FAqu.Width, FAqu.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                aquarium.Draw(gr, FAqu.Width, FAqu.Height);
+                FAqu.Image = bmp;
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -67,20 +79,47 @@ namespace lab2
         }
 
         private void FGet_Click(object sender, EventArgs e)
-        {
-            if (FTicket.Text != "")
+        { //4
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                IAnimals shark = aquarium.GetSharkinAquarium(Convert.ToInt32(FTicket.Text));
-                if (shark != null)
+                string level = listBoxLevels.Items[listBoxLevels.SelectedIndex].ToString();
+                //
+                if (FTicket.Text != "")
                 {
-                    Bitmap bmp = new Bitmap(FShark.Width, FShark.Height);
-                    Graphics gr = Graphics.FromImage(bmp);
-                    shark.setPos(30, 30);
-                    shark.drawAnimal(gr);
-                    FShark.Image = bmp;
-                    Draw();
+                    IAnimals shark = aquarium.GetSharkinAquarium(Convert.ToInt32(FTicket.Text));
+                    if (shark != null)
+                    {
+                        Bitmap bmp = new Bitmap(FShark.Width, FShark.Height);
+                        Graphics gr = Graphics.FromImage(bmp);
+                        shark.setPos(30, 30);
+                        shark.drawAnimal(gr);
+                        FShark.Image = bmp;
+                        Draw();
+                    }
                 }
             }
         }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //4
+        private void buttonDown_Click(object sender, EventArgs e)
+        {
+            aquarium.LevelDown();
+            listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+            Draw();
+        }
+
+        private void buttonUp_Click(object sender, EventArgs e)
+        {
+            aquarium.LevelUp();
+            listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+            Draw();
+        }
+        //
     }
 }
+

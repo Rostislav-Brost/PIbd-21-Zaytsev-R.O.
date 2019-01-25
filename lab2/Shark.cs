@@ -7,14 +7,86 @@ using System.Threading.Tasks;
 
 namespace lab2
 {
-    public class Shark : Fish
+    public class Shark : Fish, IComparable<Shark>, IEquatable<Shark>
     {
+        //8
+        public int CompareTo(Shark other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (Age != other.Age)
+            {
+                return Age.CompareTo(other.Age);
+            }
+            if (Speed != other.Speed)
+            {
+                return Speed.CompareTo(other.Speed);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (ColorBody != other.ColorBody)
+            {
+                ColorBody.Name.CompareTo(other.ColorBody.Name);
+            }
+            return 0;
+        }
+
+        public bool Equals(Shark other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (Speed != other.Speed)
+            {
+                return false;
+            }
+            if (Age != other.Age)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (ColorBody != other.ColorBody)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Shark sharkObj = obj as Shark;
+            if (sharkObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(sharkObj);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override int Age
         {
             get
             {
                 return base.Age;
             }
+
             protected set
             {
                 if (value > 0 && value < 30)
@@ -94,6 +166,7 @@ namespace lab2
             startPosY = rand.Next(10, 200);
         }
         //
+
         public override void moveAnimal(Graphics g)
         {
             startPosX -= ((float)Speed);
@@ -108,7 +181,7 @@ namespace lab2
         protected virtual void draw1Shark(Graphics g)
         {
             //Drawing1
-            Pen pen = new Pen(ColorBody,6);
+            Pen pen = new Pen(ColorBody, 6);
 
             //Body
             g.DrawLine(pen, startPosX, startPosY, startPosX + Age * 3, startPosY - Weight);
@@ -126,6 +199,7 @@ namespace lab2
             g.DrawLine(pen, startPosX + Age * 11, startPosY + Weight, startPosX + Age * 10, startPosY);
             g.DrawLine(pen, startPosX + Age * 11, startPosY - Weight, startPosX + Age * 10, startPosY);
         }
+
         //6
         public override string getInfo()
         {

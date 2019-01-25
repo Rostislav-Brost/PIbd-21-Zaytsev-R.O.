@@ -1,4 +1,6 @@
-﻿namespace lab2
+﻿using System;
+
+namespace lab2
 {
     partial class FAquarium
     {
@@ -44,6 +46,7 @@
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FAqu)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FShark)).BeginInit();
@@ -53,40 +56,46 @@
             // FAqu
             // 
             this.FAqu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.FAqu.Location = new System.Drawing.Point(0, 33);
+            this.FAqu.Location = new System.Drawing.Point(0, 24);
+            this.FAqu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.FAqu.Name = "FAqu";
-            this.FAqu.Size = new System.Drawing.Size(731, 637);
+            this.FAqu.Size = new System.Drawing.Size(487, 411);
             this.FAqu.TabIndex = 0;
             this.FAqu.TabStop = false;
             this.FAqu.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.FShark);
             this.groupBox1.Controls.Add(this.FGet);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.FTicket);
-            this.groupBox1.Location = new System.Drawing.Point(751, 297);
+            this.groupBox1.Location = new System.Drawing.Point(501, 231);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(305, 373);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(203, 204);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Get Car";
+            this.groupBox1.Text = "Get Fish";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // FShark
             // 
-            this.FShark.Location = new System.Drawing.Point(49, 110);
+            this.FShark.Location = new System.Drawing.Point(29, 53);
+            this.FShark.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.FShark.Name = "FShark";
-            this.FShark.Size = new System.Drawing.Size(200, 177);
+            this.FShark.Size = new System.Drawing.Size(133, 115);
             this.FShark.TabIndex = 3;
             this.FShark.TabStop = false;
             // 
             // FGet
             // 
-            this.FGet.Location = new System.Drawing.Point(81, 312);
+            this.FGet.Location = new System.Drawing.Point(41, 172);
+            this.FGet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.FGet.Name = "FGet";
-            this.FGet.Size = new System.Drawing.Size(133, 41);
+            this.FGet.Size = new System.Drawing.Size(89, 27);
             this.FGet.TabIndex = 2;
             this.FGet.Text = "Get";
             this.FGet.UseVisualStyleBackColor = true;
@@ -95,35 +104,38 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(103, 34);
+            this.label1.Location = new System.Drawing.Point(69, 14);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 20);
+            this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "number";
             // 
             // FTicket
             // 
-            this.FTicket.Location = new System.Drawing.Point(61, 67);
+            this.FTicket.Location = new System.Drawing.Point(41, 32);
+            this.FTicket.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.FTicket.Mask = "00";
             this.FTicket.Name = "FTicket";
-            this.FTicket.Size = new System.Drawing.Size(163, 26);
+            this.FTicket.Size = new System.Drawing.Size(110, 20);
             this.FTicket.TabIndex = 0;
             // 
             // listBoxLevels
             // 
             this.listBoxLevels.FormattingEnabled = true;
-            this.listBoxLevels.ItemHeight = 20;
-            this.listBoxLevels.Location = new System.Drawing.Point(821, 67);
+            this.listBoxLevels.Location = new System.Drawing.Point(547, 44);
+            this.listBoxLevels.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBoxLevels.Name = "listBoxLevels";
-            this.listBoxLevels.Size = new System.Drawing.Size(163, 224);
+            this.listBoxLevels.Size = new System.Drawing.Size(110, 121);
             this.listBoxLevels.TabIndex = 5;
             this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // buttonUp
             // 
-            this.buttonUp.Location = new System.Drawing.Point(1001, 127);
+            this.buttonUp.Location = new System.Drawing.Point(667, 44);
+            this.buttonUp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(54, 81);
+            this.buttonUp.Size = new System.Drawing.Size(36, 121);
             this.buttonUp.TabIndex = 6;
             this.buttonUp.Text = "->";
             this.buttonUp.UseVisualStyleBackColor = true;
@@ -131,9 +143,10 @@
             // 
             // buttonDown
             // 
-            this.buttonDown.Location = new System.Drawing.Point(751, 127);
+            this.buttonDown.Location = new System.Drawing.Point(501, 44);
+            this.buttonDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(54, 81);
+            this.buttonDown.Size = new System.Drawing.Size(36, 121);
             this.buttonDown.TabIndex = 7;
             this.buttonDown.Text = "<-";
             this.buttonDown.UseVisualStyleBackColor = true;
@@ -141,9 +154,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(822, 30);
+            this.button1.Location = new System.Drawing.Point(501, 11);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 31);
+            this.button1.Size = new System.Drawing.Size(203, 28);
             this.button1.TabIndex = 8;
             this.button1.Text = "Выбрать акулу";
             this.button1.UseVisualStyleBackColor = true;
@@ -156,7 +170,8 @@
             this.фаилToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1080, 33);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(720, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -166,20 +181,20 @@
             this.сохранитьToolStripMenuItem,
             this.загрузитьToolStripMenuItem});
             this.фаилToolStripMenuItem.Name = "фаилToolStripMenuItem";
-            this.фаилToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.фаилToolStripMenuItem.Size = new System.Drawing.Size(48, 22);
             this.фаилToolStripMenuItem.Text = "Фаил";
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
             // 
@@ -192,11 +207,23 @@
             // 
             this.saveFileDialog1.Filter = "txt file | *.txt";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(501, 169);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(203, 40);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Sort";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FAquarium
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1080, 670);
+            this.ClientSize = new System.Drawing.Size(720, 435);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonUp);
@@ -205,6 +232,7 @@
             this.Controls.Add(this.FAqu);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FAquarium";
             this.Text = "FAquarium";
             ((System.ComponentModel.ISupportInitialize)(this.FAqu)).EndInit();
@@ -217,8 +245,6 @@
             this.PerformLayout();
 
         }
-
-
 
         #endregion
 
@@ -238,5 +264,6 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button2;
     }
 }

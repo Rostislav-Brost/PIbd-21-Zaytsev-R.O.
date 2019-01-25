@@ -10,9 +10,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class Aquarium implements Serializable{
+public class Aquarium implements Serializable {
 
 	ClassArray<IAnimal> aquarium;
 
@@ -29,6 +31,7 @@ public class Aquarium implements Serializable{
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
+
 	//
 	// 4
 	public Aquarium(int countStages) {
@@ -43,18 +46,18 @@ public class Aquarium implements Serializable{
 		FileOutputStream fos = new FileOutputStream(s);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(aquariumStages);
-		
+
 		return true;
-		
+
 	}
-	
-	public boolean Load(String o) throws ClassNotFoundException, IOException{
+
+	public boolean Load(String o) throws ClassNotFoundException, IOException {
 		FileInputStream fis = new FileInputStream(o);
-		  ObjectInputStream oin = new ObjectInputStream(fis);
-		  aquariumStages = (ArrayList<ClassArray<IAnimal>>)oin.readObject();
-		  return true;
+		ObjectInputStream oin = new ObjectInputStream(fis);
+		aquariumStages = (ArrayList<ClassArray<IAnimal>>) oin.readObject();
+		return true;
 	}
-	
+
 	public void LevelUp() {
 		if (currentLevel + 1 < aquariumStages.size()) {
 			currentLevel++;
@@ -66,15 +69,18 @@ public class Aquarium implements Serializable{
 			currentLevel--;
 		}
 	}
+
 	//
 
-	public int PutSharkInAquarium(IAnimal shark) throws AquOverflowException {
+	public int PutSharkInAquarium(IAnimal shark) throws AquOverflowException,
+			AquariumAlreadyHaveException {
 		// 4
 		return aquarium.Plus(aquariumStages.get(currentLevel), shark);
 		//
 	}
 
-	public IAnimal GetSharkinAquarium(int ticket) throws AquIndexOutOfRangeException {
+	public IAnimal GetSharkinAquarium(int ticket)
+			throws AquIndexOutOfRangeException {
 		// 4
 		return aquarium.Minus(aquariumStages.get(currentLevel), ticket);
 		//
@@ -82,14 +88,27 @@ public class Aquarium implements Serializable{
 
 	public void Draw(Graphics g, int w, int h) {
 		DrawCells(g);
-		for (int i = 0; i < countCell; i++) {
-			IAnimal shark = aquariumStages.get(currentLevel).getObject(i);
+
+		int i = 0;
+		while (aquariumStages.get(currentLevel).hasNext()) {
+			IAnimal shark = aquariumStages.get(currentLevel).next();
 			if (shark != null) {
 				shark.setPos(5 + i / 5 * cellW + 100, i % 5 * cellH + 40);
 				shark.drawAnimal(g);
+				i++;
 			}
 		}
 	}
+	public void Sort() {
+		 		Collections.sort(aquariumStages, new Comparator<ClassArray<IAnimal>>() {
+		 
+		 			@Override
+		 			public int compare(ClassArray<IAnimal> o1, ClassArray<IAnimal> o2) {
+		 				// TODO Auto-generated method stub
+		 				return o1.compareTo(o2);
+		 			}
+		 		});
+		 	}
 
 	private void DrawCells(Graphics g) {
 		g.setColor(Color.BLACK);

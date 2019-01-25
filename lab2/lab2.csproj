@@ -47,6 +47,12 @@
   <ItemGroup>
     <Compile Include="Aquarium.cs" />
     <Compile Include="ClassArray.cs" />
+    <Compile Include="FSelectColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelectColor.Designer.cs">
+      <DependentUpon>FSelectColor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FAquarium.cs">
       <SubType>Form</SubType>
     </Compile>

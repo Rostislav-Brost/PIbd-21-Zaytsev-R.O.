@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace lab2
 {
-    interface IAnimals
+    public interface IAnimals
     {
         void moveAnimal(Graphics g);
         void drawAnimal(Graphics g);
         void setPos(int x, int y);
         void grow(int a);
+        // 5
+        void setMainColor(Color color);
+        //
     }
 }

@@ -12,6 +12,10 @@ namespace lab2
 {
     public partial class FAquarium : Form
     {
+        //5
+        FSelectColor form;
+        //
+
         Aquarium aquarium;
         public FAquarium()
         {
@@ -118,6 +122,30 @@ namespace lab2
             aquarium.LevelUp();
             listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
             Draw();
+        }
+        //
+        //5
+        private void button1_Click(object sender, EventArgs e)
+        {
+            form = new FSelectColor();
+            //   form.AddEvent(AddShark);
+            form.Show();
+        }
+        private void AddShark(IAnimals shark)
+        {
+            if (shark != null)
+            {
+                int place = aquarium.PutSharkInAquarium(shark);
+                if (place > -1)
+                {
+                    Draw();
+                    MessageBox.Show("Ваше место: " + place);
+                }
+                else
+                {
+                    MessageBox.Show("акулу не удалось посадить в клетку");
+                }
+            }
         }
         //
     }

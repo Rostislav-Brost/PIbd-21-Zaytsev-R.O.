@@ -29,5 +29,12 @@ namespace lab2
                 g.DrawLine(pen, startPosX + Age * 6, startPosY - Weight / 2, startPosX + Age * 7, startPosY);
             }
         }
+        //5
+        public void setDopColor(Color color)
+        {
+            dopColor = color;
+        }
+        //
+
     }
 }

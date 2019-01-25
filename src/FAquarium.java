@@ -5,7 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +47,8 @@ public class FAquarium {
 	int SelectedIndex;
 	String[] data;
 	static boolean close = false;
+	private FileHandler handler = null;
+	private java.util.logging.Logger logger = null;
 
 	/**
 	 * Launch the application.
@@ -62,6 +70,14 @@ public class FAquarium {
 	 * Create the application.
 	 */
 	public FAquarium() {
+		try {
+			handler = new FileHandler("test.log", true);
+			handler.setFormatter(new SimpleFormatter());
+			logger = java.util.logging.Logger.getLogger("test");
+			logger.addHandler(handler);
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 		color = Color.WHITE;
 		dopcolor = Color.YELLOW;
 		speed = 35;
@@ -81,9 +97,16 @@ public class FAquarium {
 		if (close) {
 			IAnimal shark = window.getShark();
 			if (shark != null) {
-				aquarium.PutSharkInAquarium(shark);
+				try {
+					aquarium.PutSharkInAquarium(shark);
+				} catch (AquOverflowException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				panel.repaint();
 				JOptionPane.showMessageDialog(frame, "Акула добавлена");
+
+				logger.log(Level.INFO, "PutSharkInAquarium");
 				close = false;
 			}
 		}
@@ -142,9 +165,18 @@ public class FAquarium {
 				if (listBoxLevels.getSelectedIndex() > -1) {
 					String level = listBoxLevels.getSelectedValue().toString();
 					//
+					IAnimal shark = null;
 					if (FTicket.getText() != "") {
-						IAnimal shark = aquarium.GetSharkinAquarium(Integer
-								.parseInt(FTicket.getText()));
+						try {
+							shark = aquarium.GetSharkinAquarium(Integer
+									.parseInt(FTicket.getText()));
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (AquIndexOutOfRangeException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						if (shark != null) {
 							Graphics gr = FShark.getGraphics();
 							gr.clearRect(0, 0, FShark.getWidth(),
@@ -155,6 +187,11 @@ public class FAquarium {
 						}
 					}
 				}
+
+				logger.log(
+						Level.INFO,
+						"GetSharkinAquarium from  "
+								+ Integer.parseInt(FTicket.getText()));
 			}
 		});
 		FGet.setBounds(714, 572, 115, 29);
@@ -164,6 +201,7 @@ public class FAquarium {
 		FStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Draw(panel);
+				logger.log(Level.INFO, "Repaint");
 			}
 		});
 		FStart.setBounds(681, 16, 115, 29);
@@ -175,6 +213,7 @@ public class FAquarium {
 				aquarium.LevelUp();
 				listBoxLevels.setSelectedIndex(aquarium.getCurrentLevel());
 				Draw(panel);
+				logger.log(Level.INFO, "LevelUp");
 			}
 		});
 		buttonUp.setBounds(833, 142, 75, 29);
@@ -186,6 +225,7 @@ public class FAquarium {
 				aquarium.LevelDown();
 				listBoxLevels.setSelectedIndex(aquarium.getCurrentLevel());
 				Draw(panel);
+				logger.log(Level.INFO, "LevelDown");
 			}
 		});
 		buttonDown.setBounds(608, 142, 75, 29);
@@ -195,7 +235,7 @@ public class FAquarium {
 		JButton btnOrder = new JButton("Order");
 		btnOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				logger.log(Level.INFO, "Order");
 				try {
 					frame.setVisible(false);
 					window = new FSelectColor();
@@ -227,11 +267,13 @@ public class FAquarium {
 						if (aquarium.Save(save.getSelectedFile().getPath())) {
 							if (save.getSelectedFile().getPath() != null) {
 								JOptionPane.showMessageDialog(frame, "Save");
+								logger.log(Level.INFO, "Save: successfully");
 							}
 						}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+						logger.log(Level.INFO, "Save: error " + e1);
 					}
 				}
 			}
@@ -249,15 +291,17 @@ public class FAquarium {
 						if (aquarium.Load(load.getSelectedFile().getPath()))
 							if (load.getSelectedFile().getPath() != null)
 								JOptionPane.showMessageDialog(frame, "Load");
+						logger.log(Level.INFO, "Load: successfully");
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+						logger.log(Level.INFO, "Load: error  " + e1);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+						logger.log(Level.INFO, "Load: error  " + e1);
 					}
 				}
-
 				Draw(panel);
 			}
 		});
@@ -277,7 +321,7 @@ public class FAquarium {
 		});
 	}
 
-	public void AddShark(IAnimal shark) {
+	public void AddShark(IAnimal shark) throws AquOverflowException {
 		if (shark != null) {
 			int place = aquarium.PutSharkInAquarium(shark);
 			System.out.println(place);

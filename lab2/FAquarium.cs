@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,9 @@ namespace lab2
     {
         //5
         FSelectColor form;
+        //
+        //7
+        private Logger log;
         //
 
         Aquarium aquarium;
@@ -83,23 +87,41 @@ namespace lab2
         }
 
         private void FGet_Click(object sender, EventArgs e)
-        { //4
+        {
+            //7
+            log.Info("Попытка изъятия акулы с места " + Convert.ToInt32(FTicket.Text));
+            //
+
+            //4
             if (listBoxLevels.SelectedIndex > -1)
             {
                 string level = listBoxLevels.Items[listBoxLevels.SelectedIndex].ToString();
                 //
                 if (FTicket.Text != "")
                 {
-                    IAnimals shark = aquarium.GetSharkinAquarium(Convert.ToInt32(FTicket.Text));
-                    if (shark != null)
+                    //7
+                    try
                     {
+                        IAnimals shark = aquarium.GetSharkinAquarium(Convert.ToInt32(FTicket.Text));
+
                         Bitmap bmp = new Bitmap(FShark.Width, FShark.Height);
                         Graphics gr = Graphics.FromImage(bmp);
                         shark.setPos(30, 30);
                         shark.drawAnimal(gr);
                         FShark.Image = bmp;
+                        log.Info("Изъятие акулы с места: успешно" + Convert.ToInt32(FTicket.Text));
                         Draw();
                     }
+                    catch (AquIndexOutOfRangeException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неверный номер", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Общая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    //
                 }
             }
         }
@@ -114,6 +136,9 @@ namespace lab2
         {
             aquarium.LevelDown();
             listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+            //7
+            log.Info("Переход на уровень ниже. Текущий уровень: " + aquarium.getCurrentLevel);
+            //
             Draw();
         }
 
@@ -121,30 +146,92 @@ namespace lab2
         {
             aquarium.LevelUp();
             listBoxLevels.SelectedIndex = aquarium.getCurrentLevel;
+            //7
+            log.Info("Переход на уровень выше. Текущий уровень: " + aquarium.getCurrentLevel);
+            //
             Draw();
         }
         //
         //5
         private void button1_Click(object sender, EventArgs e)
-        {
+        { //7
+            log.Info("Добавление акулы на уровень " + aquarium.getCurrentLevel);
+            //
             form = new FSelectColor();
             //   form.AddEvent(AddShark);
             form.Show();
         }
         private void AddShark(IAnimals shark)
         {
+            //7
             if (shark != null)
             {
-                int place = aquarium.PutSharkInAquarium(shark);
-                if (place > -1)
+                try
                 {
+                    int place = aquarium.PutSharkInAquarium(shark);
                     Draw();
                     MessageBox.Show("Ваше место: " + place);
                 }
+                catch (AquOverflowException ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка переполнения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Общая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            //
+        }
+        //
+
+        //6
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //7
+                log.Info("Попытка загрузки");
+                //
+                if (aquarium.SaveData(saveFileDialog1.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //7
+                    log.Info("Сохранение: успешно");
+                    //
+                }
                 else
                 {
-                    MessageBox.Show("акулу не удалось посадить в клетку");
+                    MessageBox.Show("НЕ сохранилось", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //
+                    log.Info("Сохранение: НЕ успешно");
+                    //
                 }
+            }
+        }
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //7
+            log.Info("Попытка загрузки");
+            //
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (aquarium.LoadData(openFileDialog1.FileName))
+                {
+                    MessageBox.Show("Загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //7
+                    log.Info("Загрузка: успешно");
+                    //
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //7
+                    log.Info("Загрузка: НЕ успешно");
+                    //
+                }
+                Draw();
             }
         }
         //

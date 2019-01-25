@@ -25,10 +25,15 @@ namespace lab2
 
         public static int operator +(ClassArray<T> c, T shark)
         {  //4
-            if (c.cells.Count == c.maxCount)
-            {
-                return -1;
-            }
+            
+                if (c.cells.Count == c.maxCount)
+                {
+                    //7
+                    throw new AquOverflowException();
+                    //7
+                }
+                //
+            
             //
             for (int i = 0; i < c.cells.Count; i++)
             {
@@ -56,7 +61,9 @@ namespace lab2
                 return shark;
             }
             //
-            return c.defaultValue;
+            //7
+            throw new AquIndexOutOfRangeException();
+            //
         }
 
         private bool ChekFreeCell(int index)

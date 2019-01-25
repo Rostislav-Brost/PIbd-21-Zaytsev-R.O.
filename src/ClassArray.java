@@ -18,10 +18,10 @@ class ClassArray<T> implements Serializable {
 		//
 	}
 
-	public static int Plus(ClassArray<IAnimal> c, IAnimal shark) {
+	public static int Plus(ClassArray<IAnimal> c, IAnimal shark) throws AquOverflowException {
 		// 4
 		if (c.cells.size() == c.maxCount) {
-			return -1;
+			 throw new AquOverflowException();
 		}
 		//
 		for (int i = 0; i < c.cells.size(); i++) {
@@ -38,7 +38,7 @@ class ClassArray<T> implements Serializable {
 		//
 	}
 
-	public static IAnimal Minus(ClassArray<IAnimal> c, int index) {
+	public static IAnimal Minus(ClassArray<IAnimal> c, int index) throws AquIndexOutOfRangeException {
 		// 4
 		if (c.cells.get(index) != null) {
 			IAnimal shark = c.cells.get(index);
@@ -46,7 +46,7 @@ class ClassArray<T> implements Serializable {
 			return shark;
 		}
 		//
-		return c.defaultValue;
+		throw new AquIndexOutOfRangeException();
 	}
 
 	private boolean ChekFreeCell(int index) {

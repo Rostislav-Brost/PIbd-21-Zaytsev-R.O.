@@ -68,13 +68,13 @@ public class Aquarium implements Serializable{
 	}
 	//
 
-	public int PutSharkInAquarium(IAnimal shark) {
+	public int PutSharkInAquarium(IAnimal shark) throws AquOverflowException {
 		// 4
 		return aquarium.Plus(aquariumStages.get(currentLevel), shark);
 		//
 	}
 
-	public IAnimal GetSharkinAquarium(int ticket) {
+	public IAnimal GetSharkinAquarium(int ticket) throws AquIndexOutOfRangeException {
 		// 4
 		return aquarium.Minus(aquariumStages.get(currentLevel), ticket);
 		//

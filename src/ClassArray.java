@@ -1,52 +1,63 @@
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 class ClassArray<T> {
 	private T IAnimal;
-	private IAnimal[] cells;
+	// private IAnimal[] cells;
+	// 4
+	private Dictionary<Integer, T> cells;
+	private int maxCount;
+	//
+	private T defaultValue;
 
-	private IAnimal defaultValue;
-
-	public ClassArray(int size, IAnimal defVal) {
+	public ClassArray(int size, T defVal) {
 		defaultValue = defVal;
-		cells = new IAnimal[size];
-		for (int i = 0; i < cells.length; i++) {
-			cells[i] = defaultValue;
-		}
+		// 4
+		cells = new Hashtable<Integer, T>();
+		maxCount = size;
+		//
 	}
 
 	public static int Plus(ClassArray<IAnimal> c, IAnimal shark) {
-		for (int i = 0; i < c.cells.length; i++) {
+		// 4
+		if (c.cells.size() == c.maxCount) {
+			return -1;
+		}
+		//
+		for (int i = 0; i < c.cells.size(); i++) {
 			if (c.ChekFreeCell(i)) {
-				c.cells[i] = shark;
+				// 4
+				c.cells.put(i, shark);
+				//
 				return i;
 			}
 		}
-		return -1;
+		// 4
+		c.cells.put(c.cells.size(), shark);
+		return c.cells.size() - 1;
+		//
 	}
 
 	public static IAnimal Minus(ClassArray<IAnimal> c, int index) {
-		if (!c.ChekFreeCell(index)) {
-			IAnimal shark = c.cells[index];
-			c.cells[index] = c.defaultValue;
+		// 4
+		if (c.cells.get(index) != null) {
+			IAnimal shark = c.cells.get(index);
+			c.cells.remove(index);
 			return shark;
 		}
+		//
 		return c.defaultValue;
 	}
 
 	private boolean ChekFreeCell(int index) {
-		if (index < 0 || index > cells.length) {
-			return false;
-		}
-		if (cells[index] == null) {
-			return true;
-		}
-		if (cells[index].equals(defaultValue)) {
-			return true;
-		}
-		return false;
+		// 4
+		return cells.get(index) == null;
+		//
 	}
 
-	public IAnimal getObject(int ind) {
-		if (ind > -1 && ind < cells.length) {
-			return cells[ind];
+	public T getObject(int ind) {
+		if (ind > -1 && ind < cells.size()) {
+			return cells.get(ind);
 		}
 		return defaultValue;
 	}

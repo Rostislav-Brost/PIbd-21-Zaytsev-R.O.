@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import javax.swing.JList;
 
 public class FAquarium {
 
@@ -31,6 +32,8 @@ public class FAquarium {
 	int age;
 	Boolean bands = false;
 	private IAnimal inter;
+	int SelectedIndex;
+	String[] data;
 
 	/**
 	 * Launch the application.
@@ -57,15 +60,24 @@ public class FAquarium {
 		speed = 35;
 		age = 18;
 		weight = 500;
-		aquarium = new Aquarium();
+		aquarium = new Aquarium(5);
+		SelectedIndex = -1;
+		data = new String[7];
+		for (int i = 0; i < data.length; i++) {
+			data[i] = "Level " + i;
+		}
 		initialize();
 	}
 
 	private void Draw(JPanel panel) {
-		Graphics gr = panel.getGraphics();
-		gr.clearRect(0, 0, panel.getWidth(), panel.getHeight());
+		// 4
+		if (aquarium.getCurrentLevel() > -1) {
+			//
+			Graphics gr = panel.getGraphics();
+			gr.clearRect(0, 0, panel.getWidth(), panel.getHeight());
 
-		aquarium.Draw(gr, panel.getWidth(), panel.getHeight());
+			aquarium.Draw(gr, panel.getWidth(), panel.getHeight());
+		}
 	}
 
 	/**
@@ -82,6 +94,11 @@ public class FAquarium {
 		panel.setBounds(0, 0, 569, 572);
 		frame.getContentPane().add(panel);
 
+		JList listBoxLevels = new JList(data);
+		listBoxLevels.setBounds(686, 106, 146, 91);
+		frame.getContentPane().add(listBoxLevels);
+		listBoxLevels.setSelectedIndex(aquarium.getCurrentLevel());
+
 		JButton FSetShark = new JButton("Set Shark");
 		FSetShark.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,7 +114,7 @@ public class FAquarium {
 				JOptionPane.showMessageDialog(frame, "Ваше место: " + place);
 			}
 		});
-		FSetShark.setBounds(714, 59, 115, 29);
+		FSetShark.setBounds(584, 61, 115, 29);
 		frame.getContentPane().add(FSetShark);
 
 		JButton FSetTShark = new JButton("Set Tiger Shark");
@@ -120,7 +137,7 @@ public class FAquarium {
 
 			}
 		});
-		FSetTShark.setBounds(714, 122, 163, 29);
+		FSetTShark.setBounds(745, 61, 163, 29);
 		frame.getContentPane().add(FSetTShark);
 
 		JLabel Number = new JLabel("Number");
@@ -142,17 +159,21 @@ public class FAquarium {
 		JButton FGet = new JButton("Get");
 		FGet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				if (FTicket.getText() != "") {
-					IAnimal shark = aquarium.GetSharkinAquarium(Integer
-							.parseInt(FTicket.getText()));
-					if (shark != null) {
-						Graphics gr = FShark.getGraphics();
-						gr.clearRect(0, 0, FShark.getWidth(),
-								FShark.getHeight());
-						shark.setPos(30, 30);
-						shark.drawAnimal(gr);
-						Draw(panel);
+				// 4
+				if (listBoxLevels.getSelectedIndex() > -1) {
+					String level = listBoxLevels.getSelectedValue().toString();
+					//
+					if (FTicket.getText() != "") {
+						IAnimal shark = aquarium.GetSharkinAquarium(Integer
+								.parseInt(FTicket.getText()));
+						if (shark != null) {
+							Graphics gr = FShark.getGraphics();
+							gr.clearRect(0, 0, FShark.getWidth(),
+									FShark.getHeight());
+							shark.setPos(30, 30);
+							shark.drawAnimal(gr);
+							Draw(panel);
+						}
 					}
 				}
 			}
@@ -168,6 +189,28 @@ public class FAquarium {
 		});
 		FStart.setBounds(627, 16, 115, 29);
 		frame.getContentPane().add(FStart);
+
+		JButton buttonUp = new JButton("->");
+		buttonUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aquarium.LevelUp();
+				listBoxLevels.setSelectedIndex(aquarium.getCurrentLevel());
+				Draw(panel);
+			}
+		});
+		buttonUp.setBounds(833, 142, 75, 29);
+		frame.getContentPane().add(buttonUp);
+
+		JButton buttonDown = new JButton("<-");
+		buttonDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aquarium.LevelDown();
+				listBoxLevels.setSelectedIndex(aquarium.getCurrentLevel());
+				Draw(panel);
+			}
+		});
+		buttonDown.setBounds(608, 142, 75, 29);
+		frame.getContentPane().add(buttonDown);
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override

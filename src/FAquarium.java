@@ -98,7 +98,12 @@ public class FAquarium {
 			IAnimal shark = window.getShark();
 			if (shark != null) {
 				try {
-					aquarium.PutSharkInAquarium(shark);
+					try {
+						aquarium.PutSharkInAquarium(shark);
+					} catch (AquariumAlreadyHaveException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} catch (AquOverflowException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -248,6 +253,16 @@ public class FAquarium {
 		});
 		btnOrder.setBounds(681, 61, 115, 29);
 		frame.getContentPane().add(btnOrder);
+		
+		JButton btnSort = new JButton("Sort");
+		btnSort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aquarium.Sort();
+				             Draw(panel);
+			}
+		});
+		btnSort.setBounds(811, 16, 115, 29);
+		frame.getContentPane().add(btnSort);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -323,7 +338,13 @@ public class FAquarium {
 
 	public void AddShark(IAnimal shark) throws AquOverflowException {
 		if (shark != null) {
-			int place = aquarium.PutSharkInAquarium(shark);
+			int place=0;
+			try {
+				place = aquarium.PutSharkInAquarium(shark);
+			} catch (AquariumAlreadyHaveException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(place);
 			if (place > -1) {
 				Draw(panel);

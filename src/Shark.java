@@ -6,12 +6,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Shark extends Fish implements Serializable {
+public class Shark extends Fish implements Serializable, Comparable<Shark> {
 	@Override
 	public int GetAge() {
 		return super.GetAge();
 	}
-
 
 	protected void SetAge(int value) {
 		if (value > 0 && value < 30) {
@@ -104,4 +103,67 @@ public class Shark extends Fish implements Serializable {
 		startPosX -= (GetSpeed());
 		drawAnimal(g);
 	}
+
+	@Override
+	public int compareTo(Shark other) {
+		// TODO Auto-generated method stub
+		if (other == null) {
+			return 1;
+		}
+		if (GetAge() != other.GetAge()) {
+			return GetAge()+"".compareTo(Integer.toString(other.GetAge()));
+		}
+		if (GetSpeed() != other.GetSpeed()) {
+			return (int)GetSpeed()+"".compareTo(Double.toString(other.GetSpeed()));
+		}
+		if (GetWeight() != other.GetWeight() ) {
+			return GetWeight()+"".compareTo(Integer.toString(other.GetWeight()) );
+		}
+		if (GetColorBody() != other.GetColorBody()) {
+			return GetColorBody().toString().compareTo(other.GetColorBody().toString());
+			
+		}
+		return 0;
+	}
+	public boolean equals(Shark other)
+	         {
+	            if (other == null)
+	             {
+	                 return false;
+	             }
+	             if (GetSpeed() != other.GetSpeed())
+	             {
+	                 return false;
+	             }
+	             if (GetAge() != other.GetAge())
+	             {
+	                 return false;
+	             }
+	             if (GetWeight() != other.GetWeight())
+	             {
+	                 return false;
+	             }
+	             if (GetColorBody() != other.GetColorBody())
+	             {
+	                 return false;
+	             }
+	             return true;
+	         }
+	@Override
+	         public  boolean equals(Object obj)
+	         {
+	             if (obj == null)
+	             {
+	                 return false;
+	             }
+	             Shark sharkObj = (Shark)obj;
+	             if (sharkObj == null)
+	             {
+	                 return false;
+	             }
+	             else
+	             {
+	                 return equals(sharkObj);
+	             }
+	         }
 }

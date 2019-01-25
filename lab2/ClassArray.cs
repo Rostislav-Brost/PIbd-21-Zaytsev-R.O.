@@ -8,63 +8,79 @@ namespace lab2
 {
     class ClassArray<T> where T : IAnimals
     {
-        private T[] cells;
+        //4
+        private Dictionary<int, T> cells;
+        private int maxCount;
+        //
 
         private T defaultValue;
         public ClassArray(int size, T defVal)
         {
             defaultValue = defVal;
-            cells = new T[size];
-            for (int i = 0; i < cells.Length; i++)
-            {
-                cells[i] = defaultValue;
-            }
+            //4
+            cells = new Dictionary<int, T>();
+            maxCount = size;
+            //
         }
 
         public static int operator +(ClassArray<T> c, T shark)
-        {
-            for (int i = 0; i < c.cells.Length; i++)
+        {  //4
+            if (c.cells.Count == c.maxCount)
+            {
+                return -1;
+            }
+            //
+            for (int i = 0; i < c.cells.Count; i++)
             {
                 if (c.ChekFreeCell(i))
                 {
-                    c.cells[i] = shark;
+                    //4
+                    c.cells.Add(i, shark);
+                    //
                     return i;
                 }
             }
-            return -1;
+            //4
+            c.cells.Add(c.cells.Count, shark);
+            return c.cells.Count - 1;
+            //
         }
 
         public static T operator -(ClassArray<T> c, int index)
         {
-            if (!c.ChekFreeCell(index))
+            //4
+            if (c.cells.ContainsKey(index))
             {
                 T shark = c.cells[index];
-                c.cells[index] = c.defaultValue;
+                c.cells.Remove(index);
                 return shark;
             }
+            //
             return c.defaultValue;
         }
 
         private bool ChekFreeCell(int index)
         {
-            if (index < 0 || index > cells.Length)
-            {
-                return false;
-            }
-            if (cells[index] == null)
-            {
-                return true;
-            }
-            if (cells[index].Equals(defaultValue))
-            {
-                return true;
-            }
-            return false;
+            //4
+            return !cells.ContainsKey(index);
+            //
         }
-
+        //4 
+        public T this[int ind]
+        {
+            get
+            {
+                if (cells.ContainsKey(ind))
+                {
+                    return cells[ind];
+                }
+                return defaultValue;
+            }
+        }
+        //
         public T getObject(int ind)
         {
-            if (ind > -1 && ind < cells.Length)
+            if (ind > -1 && ind < cells.Count)
             {
                 return cells[ind];
             }

@@ -20,20 +20,22 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 
 public class FAquarium {
-
-	private JFrame frame;
+	FSelectColor window = null;
+	static JFrame frame;
+	JPanel panel;
 	private JTextField FTicket;
 	Matcher m;
-	Aquarium aquarium;
+	static Aquarium aquarium;
 	Color color;
 	Color dopcolor;
 	int speed;
 	int weight;
 	int age;
 	Boolean bands = false;
-	private IAnimal inter;
+	private static IAnimal inter;
 	int SelectedIndex;
 	String[] data;
+	static boolean close=false;
 
 	/**
 	 * Launch the application.
@@ -70,7 +72,22 @@ public class FAquarium {
 	}
 
 	private void Draw(JPanel panel) {
+		//5
+		if(close){
+			IAnimal shark = window.getShark();
+			if (shark != null) {
+				aquarium.PutSharkInAquarium(shark);
+				panel.repaint();
+				JOptionPane.showMessageDialog(frame, "Акула добавлена");
+				close=false;
+			//	AddShark(shark);
+				
+			}
+		}
+		//
+			
 		// 4
+		
 		if (aquarium.getCurrentLevel() > -1) {
 			//
 			Graphics gr = panel.getGraphics();
@@ -79,6 +96,7 @@ public class FAquarium {
 			aquarium.Draw(gr, panel.getWidth(), panel.getHeight());
 		}
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -98,47 +116,6 @@ public class FAquarium {
 		listBoxLevels.setBounds(686, 106, 146, 91);
 		frame.getContentPane().add(listBoxLevels);
 		listBoxLevels.setSelectedIndex(aquarium.getCurrentLevel());
-
-		JButton FSetShark = new JButton("Set Shark");
-		FSetShark.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				Color initialBackground = FSetShark.getForeground();
-				Color foreground = JColorChooser.showDialog(null,
-						"JColorChooser Sample", initialBackground);
-				color = foreground;
-
-				inter = new Shark(15, 15, 15, color);
-				int place = aquarium.PutSharkInAquarium(inter);
-				Draw(panel);
-				JOptionPane.showMessageDialog(frame, "Ваше место: " + place);
-			}
-		});
-		FSetShark.setBounds(584, 61, 115, 29);
-		frame.getContentPane().add(FSetShark);
-
-		JButton FSetTShark = new JButton("Set Tiger Shark");
-		FSetTShark.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color initialBackground = FSetShark.getForeground();
-				Color foreground = JColorChooser.showDialog(null,
-						"JColorChooser Sample", initialBackground);
-				color = foreground;
-
-				Color initialBackground1 = FSetShark.getForeground();
-				Color foreground1 = JColorChooser.showDialog(null,
-						"JColorChooser Sample", initialBackground1);
-				dopcolor = foreground1;
-
-				inter = new TigerShark(10, 10, 10, color, true, dopcolor);
-				int place = aquarium.PutSharkInAquarium(inter);
-				Draw(panel);
-				JOptionPane.showMessageDialog(frame, "Ваше место: " + place);
-
-			}
-		});
-		FSetTShark.setBounds(745, 61, 163, 29);
-		frame.getContentPane().add(FSetTShark);
 
 		JLabel Number = new JLabel("Number");
 		Number.setBounds(745, 205, 69, 20);
@@ -187,7 +164,7 @@ public class FAquarium {
 				Draw(panel);
 			}
 		});
-		FStart.setBounds(627, 16, 115, 29);
+		FStart.setBounds(681, 16, 115, 29);
 		frame.getContentPane().add(FStart);
 
 		JButton buttonUp = new JButton("->");
@@ -211,6 +188,27 @@ public class FAquarium {
 		});
 		buttonDown.setBounds(608, 142, 75, 29);
 		frame.getContentPane().add(buttonDown);
+
+		//5
+		JButton btnOrder = new JButton("Order");
+		btnOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					frame.setVisible(false);
+					window = new FSelectColor();
+					window.frame.setVisible(true);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
+		btnOrder.setBounds(681, 61, 115, 29);
+		frame.getContentPane().add(btnOrder);
+		//
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -225,4 +223,19 @@ public class FAquarium {
 			}
 		});
 	}
+
+public  void AddShark(IAnimal shark) {
+		if (shark != null) {
+			int place = aquarium.PutSharkInAquarium(shark);
+			System.out.println(place);
+			if (place > -1) {
+				Draw(panel);
+				JOptionPane.showMessageDialog(frame, "Ваше место: " + place);
+			} else {
+				JOptionPane.showMessageDialog(frame,
+						"акулу не удалось посадить в клетку");
+			}
+		}
+	}
+
 }

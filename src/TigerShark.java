@@ -13,6 +13,10 @@ public class TigerShark extends Shark {
 		this.bands = bands;
 		this.dopColor = dopColor;
 	}
+	 public void setDopColor(Color color)
+	         {
+	           dopColor = color;
+	         }
 
 	@Override
 	protected void draw1Shark(Graphics g) {

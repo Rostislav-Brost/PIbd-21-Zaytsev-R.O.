@@ -8,3 +8,4 @@ C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.csproj.GenerateResource
 C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.csproj.CoreCompileInputs.cache
 C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.exe
 C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.pdb
+C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.FAquarium.resources

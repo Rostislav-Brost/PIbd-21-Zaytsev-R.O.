@@ -38,17 +38,24 @@
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.фаилToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.FAqu)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FShark)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // FAqu
             // 
             this.FAqu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.FAqu.Location = new System.Drawing.Point(0, 0);
+            this.FAqu.Location = new System.Drawing.Point(0, 33);
             this.FAqu.Name = "FAqu";
-            this.FAqu.Size = new System.Drawing.Size(731, 670);
+            this.FAqu.Size = new System.Drawing.Size(731, 637);
             this.FAqu.TabIndex = 0;
             this.FAqu.TabStop = false;
             this.FAqu.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -64,7 +71,7 @@
             this.groupBox1.Size = new System.Drawing.Size(305, 373);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Get Fish";
+            this.groupBox1.Text = "Get Car";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // FShark
@@ -134,13 +141,56 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(830, 15);
+            this.button1.Location = new System.Drawing.Point(822, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(153, 31);
             this.button1.TabIndex = 8;
             this.button1.Text = "Выбрать акулу";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.фаилToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1080, 33);
+            this.menuStrip1.TabIndex = 9;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // фаилToolStripMenuItem
+            // 
+            this.фаилToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сохранитьToolStripMenuItem,
+            this.загрузитьToolStripMenuItem});
+            this.фаилToolStripMenuItem.Name = "фаилToolStripMenuItem";
+            this.фаилToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.фаилToolStripMenuItem.Text = "Фаил";
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить";
+            this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "txt file | *.txt";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "txt file | *.txt";
             // 
             // FAquarium
             // 
@@ -153,15 +203,22 @@
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.FAqu);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FAquarium";
             this.Text = "FAquarium";
             ((System.ComponentModel.ISupportInitialize)(this.FAqu)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FShark)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
+
+
 
         #endregion
 
@@ -175,5 +232,11 @@
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem фаилToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

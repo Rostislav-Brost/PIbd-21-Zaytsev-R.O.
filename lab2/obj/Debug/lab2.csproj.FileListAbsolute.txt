@@ -9,3 +9,5 @@ C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.csproj.CoreCompileInput
 C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.exe
 C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.pdb
 C:\Users\Rostislav\source\repos\lab2\lab2\obj\Debug\lab2.FAquarium.resources
+C:\Users\Rostislav\source\repos\lab2\lab2\bin\Debug\NLog.dll
+C:\Users\Rostislav\source\repos\lab2\lab2\bin\Debug\NLog.xml

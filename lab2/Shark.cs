@@ -78,6 +78,22 @@ namespace lab2
             startPosY = rand.Next(10, 200);
         }
 
+        //6
+        public Shark(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 4)
+            {
+                Speed = Convert.ToInt32(strs[0]);
+                Age = Convert.ToInt32(strs[1]);
+                Weight = Convert.ToInt32(strs[2]);
+                ColorBody = Color.FromName(strs[3]);
+            }
+            Random rand = new Random();
+            startPosX = rand.Next(10, 200);
+            startPosY = rand.Next(10, 200);
+        }
+        //
         public override void moveAnimal(Graphics g)
         {
             startPosX -= ((float)Speed);
@@ -110,5 +126,11 @@ namespace lab2
             g.DrawLine(pen, startPosX + Age * 11, startPosY + Weight, startPosX + Age * 10, startPosY);
             g.DrawLine(pen, startPosX + Age * 11, startPosY - Weight, startPosX + Age * 10, startPosY);
         }
+        //6
+        public override string getInfo()
+        {
+            return Speed + ";" + Age + ";" + Weight + ";" + ColorBody.Name;
+        }
+        //
     }
 }

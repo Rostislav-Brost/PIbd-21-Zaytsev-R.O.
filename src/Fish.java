@@ -1,7 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public abstract class Fish implements IAnimal {
+public abstract class Fish implements IAnimal,Serializable{
 	protected int startPosX;
 	protected int startPosY;
 
@@ -13,10 +14,11 @@ public abstract class Fish implements IAnimal {
 		startPosX = x;
 		startPosY = y;
 	}
-	public  void setMainColor(Color color)
-	        {
-	            ColorBody = color;
-	         }
+
+	public void setMainColor(Color color) {
+		ColorBody = color;
+	}
+
 	protected int age;
 	private int Age;
 
@@ -63,4 +65,5 @@ public abstract class Fish implements IAnimal {
 	public Color GetColorBody() {
 		return ColorBody;
 	}
+
 }

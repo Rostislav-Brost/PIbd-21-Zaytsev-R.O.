@@ -1,12 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Random;
 
-public class Shark extends Fish {
+public class Shark extends Fish implements Serializable {
 	@Override
 	public int GetAge() {
 		return super.GetAge();
 	}
+
 
 	protected void SetAge(int value) {
 		if (value > 0 && value < 30) {
@@ -99,5 +104,4 @@ public class Shark extends Fish {
 		startPosX -= (GetSpeed());
 		drawAnimal(g);
 	}
-
 }

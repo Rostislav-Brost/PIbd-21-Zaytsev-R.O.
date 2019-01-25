@@ -1,9 +1,18 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Aquarium {
+public class Aquarium implements Serializable{
 
 	ClassArray<IAnimal> aquarium;
 
@@ -20,9 +29,7 @@ public class Aquarium {
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
-
 	//
-
 	// 4
 	public Aquarium(int countStages) {
 		aquariumStages = new ArrayList<ClassArray<IAnimal>>(countStages);
@@ -32,6 +39,22 @@ public class Aquarium {
 		}
 	}
 
+	public boolean Save(String s) throws IOException {
+		FileOutputStream fos = new FileOutputStream(s);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(aquariumStages);
+		
+		return true;
+		
+	}
+	
+	public boolean Load(String o) throws ClassNotFoundException, IOException{
+		FileInputStream fis = new FileInputStream(o);
+		  ObjectInputStream oin = new ObjectInputStream(fis);
+		  aquariumStages = (ArrayList<ClassArray<IAnimal>>)oin.readObject();
+		  return true;
+	}
+	
 	public void LevelUp() {
 		if (currentLevel + 1 < aquariumStages.size()) {
 			currentLevel++;
@@ -43,7 +66,6 @@ public class Aquarium {
 			currentLevel--;
 		}
 	}
-
 	//
 
 	public int PutSharkInAquarium(IAnimal shark) {

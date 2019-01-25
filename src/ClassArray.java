@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-class ClassArray<T> {
+class ClassArray<T> implements Serializable {
 	private T IAnimal;
 	// private IAnimal[] cells;
 	// 4
@@ -9,7 +10,6 @@ class ClassArray<T> {
 	private int maxCount;
 	//
 	private T defaultValue;
-
 	public ClassArray(int size, T defVal) {
 		defaultValue = defVal;
 		// 4

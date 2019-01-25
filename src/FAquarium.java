@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,6 +20,9 @@ import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
 
 public class FAquarium {
 	FSelectColor window = null;
@@ -35,7 +40,7 @@ public class FAquarium {
 	private static IAnimal inter;
 	int SelectedIndex;
 	String[] data;
-	static boolean close=false;
+	static boolean close = false;
 
 	/**
 	 * Launch the application.
@@ -72,22 +77,20 @@ public class FAquarium {
 	}
 
 	private void Draw(JPanel panel) {
-		//5
-		if(close){
+		// 5
+		if (close) {
 			IAnimal shark = window.getShark();
 			if (shark != null) {
 				aquarium.PutSharkInAquarium(shark);
 				panel.repaint();
 				JOptionPane.showMessageDialog(frame, "Акула добавлена");
-				close=false;
-			//	AddShark(shark);
-				
+				close = false;
 			}
 		}
 		//
-			
+
 		// 4
-		
+
 		if (aquarium.getCurrentLevel() > -1) {
 			//
 			Graphics gr = panel.getGraphics();
@@ -96,7 +99,6 @@ public class FAquarium {
 			aquarium.Draw(gr, panel.getWidth(), panel.getHeight());
 		}
 	}
-	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -149,7 +151,7 @@ public class FAquarium {
 									FShark.getHeight());
 							shark.setPos(30, 30);
 							shark.drawAnimal(gr);
-							Draw(panel);
+							panel.repaint();
 						}
 					}
 				}
@@ -189,11 +191,11 @@ public class FAquarium {
 		buttonDown.setBounds(608, 142, 75, 29);
 		frame.getContentPane().add(buttonDown);
 
-		//5
+		// 5
 		JButton btnOrder = new JButton("Order");
 		btnOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				try {
 					frame.setVisible(false);
 					window = new FSelectColor();
@@ -202,12 +204,63 @@ public class FAquarium {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
-			
 		});
 		btnOrder.setBounds(681, 61, 115, 29);
 		frame.getContentPane().add(btnOrder);
+
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mnFile.add(mntmSave);
+		mntmSave.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser save = new JFileChooser();
+				if (save.showDialog(null, "Save") == JFileChooser.APPROVE_OPTION) {
+					try {
+						if (aquarium.Save(save.getSelectedFile().getPath())) {
+							if (save.getSelectedFile().getPath() != null) {
+								JOptionPane.showMessageDialog(frame, "Save");
+							}
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
+		JMenuItem mntmLoad = new JMenuItem("Load");
+		mnFile.add(mntmLoad);
+		mntmLoad.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser load = new JFileChooser();
+				if (load.showDialog(null, "Open") == JFileChooser.APPROVE_OPTION) {
+					try {
+						if (aquarium.Load(load.getSelectedFile().getPath()))
+							if (load.getSelectedFile().getPath() != null)
+								JOptionPane.showMessageDialog(frame, "Load");
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+
+				Draw(panel);
+			}
+		});
 		//
 		btnNewButton.addActionListener(new ActionListener() {
 
@@ -224,7 +277,7 @@ public class FAquarium {
 		});
 	}
 
-public  void AddShark(IAnimal shark) {
+	public void AddShark(IAnimal shark) {
 		if (shark != null) {
 			int place = aquarium.PutSharkInAquarium(shark);
 			System.out.println(place);
@@ -237,5 +290,4 @@ public  void AddShark(IAnimal shark) {
 			}
 		}
 	}
-
 }
